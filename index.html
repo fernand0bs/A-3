@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para mi niña ❤️</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    font-family: Georgia, serif;
+    color: white;
+    background: linear-gradient(135deg,#170914,#58152f,#180b20);
+}
+
+.carta {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px 22px;
+    border-radius: 25px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid #ff91b5;
+    box-shadow: 0 0 35px #ff397b55;
+    animation: aparecer 1.5s ease;
+}
+
+h1 { color: #ff91b5; }
+
+p {
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+.grande {
+    font-size: 65px;
+    animation: latir 1s infinite;
+}
+
+button {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 30px;
+    background: #ff4f87;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff4f87;
+}
+
+.oculto { display: none; }
+
+.corazon {
+    position: fixed;
+    bottom: -50px;
+    pointer-events: none;
+    z-index: 1;
+    animation: subir linear forwards;
+}
+
+@keyframes latir {
+    50% { transform: scale(1.25); }
+}
+
+@keyframes subir {
+    to {
+        transform: translateY(-115vh);
+        opacity: 0;
+    }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="carta">
+
+    <div class="grande">❤️</div>
+
+    <div id="inicio">
+        <h1>Una sorpresa para ti</h1>
+        <p>Hay algo que quiero decirte, mi niña...</p>
+        <button onclick="abrirSorpresa()">
+            Haz clic aquí, mi niña ❤️
+        </button>
+    </div>
+
+    <div id="mensaje" class="oculto">
+        <h1>Para mi niña hermosa 💗</h1>
+
+        <p>
+            Te quiero muchísimo, mi niña.
+            <br><br>
+            Quiero cuidarte y protegerte,
+            estar para ti cuando me necesites.
+            <br><br>
+            En las buenas y en las malas,
+            en los días bonitos y difíciles.
+            <br><br>
+            Quiero verte sonreír y recordarte
+            que nunca estarás sola.
+            <br><br>
+            <strong>Siempre contigo, mi niña. 🫶</strong>
+        </p>
+
+        <div class="grande">💕</div>
+        <p>Con mucho cariño, para ti. ❤️</p>
+    </div>
+
+    <button id="pausar" class="oculto" onclick="pausarMusica()">
+        Pausar música
+    </button>
+
+</div>
+
+<audio id="musica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function abrirSorpresa() {
+    const audio = document.getElementById("musica");
+
+    audio.play().then(() => {
+        document.getElementById("inicio").style.display = "none";
+        document.getElementById("mensaje").style.display = "block";
+        document.getElementById("pausar").style.display = "inline-block";
+    }).catch(() => {
+        alert("Revisa que hayas subido musica.mp3 a GitHub.");
+    });
+}
+
+function pausarMusica() {
+    const audio = document.getElementById("musica");
+    const boton = document.getElementById("pausar");
+
+    if (audio.paused) {
+        audio.play();
+        boton.innerText = "Pausar música";
+    } else {
+        audio.pause();
+        boton.innerText = "Reproducir música";
+    }
+}
+
+const emojis = ["❤️","💕","💗","💖","🫶"];
+
+function crearCorazon() {
+    const elemento = document.createElement("div");
+    elemento.className = "corazon";
+    elemento.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+
+    elemento.style.left = Math.random()*100 + "vw";
+    elemento.style.fontSize = (20 + Math.random()*25) + "px";
+    elemento.style.animationDuration = (5 + Math.random()*5) + "s";
+
+    document.body.appendChild(elemento);
+
+    setTimeout(() => elemento.remove(), 10000);
+}
+
+setInterval(crearCorazon, 450);
+</script>
+
+</body>
+</html>
